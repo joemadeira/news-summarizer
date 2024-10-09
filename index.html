@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Summarizer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>News Summarizer</h1>
+
+    <form id="news-form">
+      <label for="mode">Choose Mode:</label>
+      <select id="mode" name="mode">
+        <option value="any">Any News</option>
+        <option value="custom">Custom News</option>
+      </select>
+
+      <div id="topic-container" class="hidden">
+        <label for="topic">Enter Topic:</label>
+        <input type="text" id="topic" name="topic" placeholder="e.g., Dollar">
+      </div>
+
+      <label for="timeline">Choose Timeline:</label>
+      <select id="timeline" name="timeline">
+        <option value="24hours">Last 24 Hours</option>
+        <option value="7days">Last 7 Days</option>
+      </select>
+
+      <label for="sources">Enter Sources (comma-separated URLs):</label>
+      <input type="text" id="sources" name="sources" placeholder="https://example.com, https://another.com">
+
+      <button type="submit">Generate Summary</button>
+    </form>
+
+    <div id="summary-result">
+      <h2>Summary</h2>
+      <p id="summary-text">Your summary will appear here...</p>
+      <p id="summary-sources"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
