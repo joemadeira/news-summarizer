@@ -1,3 +1,16 @@
+// Ensure the topic field shows or hides based on the selected mode
+document.getElementById('mode').addEventListener('change', function() {
+  const mode = this.value;
+  const topicContainer = document.getElementById('topic-container');
+
+  // Show or hide the topic input based on the selected mode
+  if (mode === 'custom') {
+    topicContainer.classList.remove('hidden');
+  } else {
+    topicContainer.classList.add('hidden');
+  }
+});
+
 // Function to fetch news from NewsAPI
 async function fetchNews(topic, sources, timeline) {
   const apiKey = 'acb249b6d26b47c4bfd750a1663c8741'; // Your actual API key
@@ -6,7 +19,7 @@ async function fetchNews(topic, sources, timeline) {
   try {
     const response = await fetch(url);
     const data = await response.json();
-
+    
     if (data.articles && data.articles.length > 0) {
       return data.articles.map(article => `${article.title} - ${article.source.name}`).join('\n');
     } else {
