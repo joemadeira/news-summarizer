@@ -2,74 +2,14 @@ document.getElementById('mode').addEventListener('change', function() {
   const mode = this.value;
   const topicContainer = document.getElementById('topic-container');
 
-  // Debugging log to ensure the mode change is being detected
+  // Log to confirm the mode change event is firing
   console.log('Mode changed to:', mode);
 
-  // Show or hide the topic input based on the selected mode
   if (mode === 'custom') {
-    console.log('Showing custom topic input');
-    topicContainer.classList.remove('hidden'); // This should make the topic box visible
+    console.log('Custom mode selected: showing topic input');
+    topicContainer.classList.remove('hidden');
   } else {
-    console.log('Hiding custom topic input');
-    topicContainer.classList.add('hidden'); // This should hide the topic box
+    console.log('Any mode selected: hiding topic input');
+    topicContainer.classList.add('hidden');
   }
-});
-
-// Function to fetch news from NewsAPI
-async function fetchNews(topic, sources, timeline) {
-  const apiKey = 'acb249b6d26b47c4bfd750a1663c8741'; // Your actual API key
-  const url = `https://newsapi.org/v2/everything?q=${topic}&sources=${sources.join(',')}&from=${getDate(timeline)}&apiKey=${apiKey}`;
-  
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    
-    if (data.articles && data.articles.length > 0) {
-      return data.articles.map(article => `${article.title} - ${article.source.name}`).join('\n');
-    } else {
-      return 'No articles found for this topic and source combination.';
-    }
-  } catch (error) {
-    console.error('Error fetching news:', error);
-    return 'Error fetching news. Please try again later.';
-  }
-}
-
-// Function to get the date based on the timeline selected
-function getDate(timeline) {
-  const date = new Date();
-  if (timeline === '24hours') {
-    date.setDate(date.getDate() - 1);
-  } else if (timeline === '7days') {
-    date.setDate(date.getDate() - 7);
-  }
-  return date.toISOString().split('T')[0]; // return the date in YYYY-MM-DD format
-}
-
-// Handle form submission and fetching the news
-document.getElementById('news-form').addEventListener('submit', async function(event) {
-  event.preventDefault();
-
-  const mode = document.getElementById('mode').value;
-  const topic = document.getElementById('topic').value;
-  const timeline = document.getElementById('timeline').value;
-  const sources = document.getElementById('sources').value.split(',').map(s => s.trim());
-
-  let summary = "Summary of the news articles:";
-  let usedSources = "";
-
-  if (mode === 'any') {
-    summary += "\nFetching general articles is not yet supported via NewsAPI.";
-    usedSources = "Default sources (NewsAPI supports specific topics).";
-  } else if (mode === 'custom' && topic) {
-    const fetchedSummary = await fetchNews(topic, sources, timeline);
-    summary += `\n${fetchedSummary}`;
-    usedSources = `Sources: ${sources.join(', ')}`;
-  } else {
-    summary = "Please enter a valid topic and sources.";
-  }
-
-  // Update the result in the HTML
-  document.getElementById('summary-text').textContent = summary;
-  document.getElementById('summary-sources').textContent = usedSources;
 });
