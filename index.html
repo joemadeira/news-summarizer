@@ -17,10 +17,23 @@
         <option value="custom">Custom News</option>
       </select>
 
+      <!-- Custom Topic Input -->
       <div id="topic-container" class="hidden">
         <label for="topic">Enter Topic:</label>
         <input type="text" id="topic" name="topic" placeholder="e.g., Dollar">
       </div>
+
+      <!-- Time Frame Dropdown -->
+      <div id="timeline-container">
+        <label for="timeline">Choose Timeline:</label>
+        <select id="timeline" name="timeline">
+          <option value="24hours">Last 24 Hours</option>
+          <option value="7days">Last 7 Days</option>
+        </select>
+      </div>
+
+      <label for="sources">Enter Sources (comma-separated IDs):</label>
+      <input type="text" id="sources" name="sources" placeholder="bbc-news, bloomberg, cnn">
 
       <button type="submit">Generate Summary</button>
     </form>
