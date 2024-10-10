@@ -6,15 +6,15 @@ async function fetchNews(topic, sources, timeline) {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    
+
     if (data.articles && data.articles.length > 0) {
-      return data.articles.map(article => article.title).join('\n');
+      return data.articles.map(article => `${article.title} - ${article.source.name}`).join('\n');
     } else {
       return 'No articles found for this topic and source combination.';
     }
   } catch (error) {
     console.error('Error fetching news:', error);
-    return 'Error fetching news.';
+    return 'Error fetching news. Please try again later.';
   }
 }
 
@@ -42,11 +42,9 @@ document.getElementById('news-form').addEventListener('submit', async function(e
   let usedSources = "";
 
   if (mode === 'any') {
-    // Mode 1: Fetch general news (no specific topic required)
     summary += "\nFetching general articles is not yet supported via NewsAPI.";
     usedSources = "Default sources (NewsAPI supports specific topics).";
   } else if (mode === 'custom' && topic) {
-    // Mode 2: Fetch news for the specific topic from provided sources
     const fetchedSummary = await fetchNews(topic, sources, timeline);
     summary += `\n${fetchedSummary}`;
     usedSources = `Sources: ${sources.join(', ')}`;
