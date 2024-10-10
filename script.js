@@ -1,13 +1,17 @@
-// Ensure the topic field shows or hides based on the selected mode
 document.getElementById('mode').addEventListener('change', function() {
   const mode = this.value;
   const topicContainer = document.getElementById('topic-container');
 
+  // Debugging log to ensure the mode change is being detected
+  console.log('Mode changed to:', mode);
+
   // Show or hide the topic input based on the selected mode
   if (mode === 'custom') {
-    topicContainer.classList.remove('hidden');
+    console.log('Showing custom topic input');
+    topicContainer.classList.remove('hidden'); // This should make the topic box visible
   } else {
-    topicContainer.classList.add('hidden');
+    console.log('Hiding custom topic input');
+    topicContainer.classList.add('hidden'); // This should hide the topic box
   }
 });
 
